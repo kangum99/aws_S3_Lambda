@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>어학 사전</title>
+        <link rel="stylesheet" href="https://stckpath.bootstraph.com/bootstrap/4.2.1/css/bootstrap.min.css">   
+    </head>
+<center>
+    <body>
+        <br>
+        <h1>◆나만의 어학사전◆</h1>
+        <h3>찾고 싶은 단어를 입력하세요!</h3>
+        <h4>모든 언어로 가능(한자 제외!)</h5>
+        <textarea class="container" style="width: 400px; height: 100px; font-size : 40px; border: mediumpurple solid;"></textarea>
+        <br>
+        <button onclick="sendRequest()" style="font-size: 30px; background-color: mediumslateblue; color: white;" class="btn btn-primary">
+            검색하기
+        </button>
+        <h2 class="result" style="width: 600px; border: mediumorchid dotted;"></h2>
+    </body>
+</center>
+    <script type="text/javascript">
+        var input = document.querySelector(".container")
+        var result = document.querySelector(".result")
+        function sendRequest() {
+            result.innerHTML="로딩중입니다! 잠시만 기다려 주세요~^^"
+            fetch ("https://rfjpjh5elc.execute-api.ap-northeast-2.amazonaws.com/default/parser_Lamda", {
+                method : "POST", 
+                body : JSON.stringify({
+                    text : input.value
+                })
+            }).then(function(response){
+                return response.text().then(function(text) {
+                    result.innerHTML = text;
+                })
+            })
+        }
+    </script>
+</html>
+
